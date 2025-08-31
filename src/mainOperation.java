@@ -157,14 +157,13 @@ public class mainOperation {
         int id = sc.nextInt();
         sc.nextLine();
 
-        String query = "SELECT BK.ID AS BOOK_ID , BK.TITLE AS TITLE , BW.BORROW_DATE , BW.RETURN_DATE FROM BOOKS BK JOIN " +
+        String query = "SELECT DISTINCT(BK.ID) , BK.TITLE FROM BOOKS BK JOIN " +
                 "BORROW BW ON BK.ID = BW.BOOK_ID AND BW.USER_ID = ?";
         try(PreparedStatement stmt = con.prepareStatement(query)){
             stmt.setInt(1,id);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()){
-                System.out.println(rs.getInt(1)+" | "+rs.getString(2)+" | "+
-                        rs.getObject(3)+" | "+rs.getObject(4));
+                System.out.println(rs.getInt(1)+" | "+rs.getString(2)+" | ");
             }
         }catch (Exception e){
             e.printStackTrace();
